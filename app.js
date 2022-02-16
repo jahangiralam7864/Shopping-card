@@ -26,7 +26,27 @@ function updateCaseNumber(product, price,isIncreasing) {
     // Update case total input
     const castTotal = document.getElementById(product + '-total');
     castTotal.innerText = caseNumber * price;
+    //  sub total tax total trice call
+    calculateTotal();
 }
+
+function getInputValue(product) {
+    const phoneInput = document.getElementById(product +'-number');
+    const phoneNumber = parseInt(phoneInput.value);
+    return phoneNumber;
+}
+function calculateTotal() {
+    const phoneTotal = getInputValue('phone') * 1220;
+    const caseTotal  = getInputValue('case') * 100;
+    const subTotal = phoneTotal + caseTotal;
+    const tax = subTotal / 10;
+    const totalPrice = subTotal + tax;
+    // update on the html
+    document.getElementById('sub-total').innerText = subTotal;
+    document.getElementById('tax-amount').innerText = tax;
+    document.getElementById('total-price').innerText = totalPrice;
+}
+
 
 // phone increase decrease event
 document.getElementById('phone-plus').addEventListener('click', function () {
@@ -40,7 +60,6 @@ document.getElementById('phone-minus').addEventListener('click', function () {
 document.getElementById('case-plus').addEventListener('click', function () {
     updateCaseNumber('case', 100, true);
 });
-
 document.getElementById('case-minus').addEventListener('click', function () {
-    updateCaseNumber('case', 100, false);
+    updateCaseNumber('case',100,false);
 });
